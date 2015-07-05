@@ -34,13 +34,14 @@ class Ship(Base):
     user_1 = relationship(User)
     user_id_2 = Column(Integer, ForeignKey(user.id), nullable=False)
     user_2 = relationship(User)
+    time = Column(DateTime, nullable=False)
     votes = Column(Integer, nullable=False)
 
 
 class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False, unique=True)
 
 
 class ShipTag(Base):
