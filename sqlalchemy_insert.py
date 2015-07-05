@@ -21,8 +21,11 @@ def addShip(user_item_1, user_item_2, tags, votes):
 	session.add(new_ship)
 
 	for n in tags:
-		new_tag = Tag(name=n)
-		session.add(new_tag)
+		try:
+			new_tag = session.query(Tag).filter(Tag.name==n).one():
+		except:
+			new_tag = Tag(name=n)
+			session.add(new_tag)
 		new_ship_tag = Ship_Tag(new_ship, new_tag)
 		session.add(new_ship_tag)
 
