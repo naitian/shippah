@@ -34,7 +34,7 @@ class Ship(Base):
     user_1 = relationship(User)
     user_id_2 = Column(Integer, ForeignKey(user.id), nullable=False)
     user_2 = relationship(User)
-    votes = Column(Integer)
+    votes = Column(Integer, nullable=False)
 
 
 class Tag(Base):
