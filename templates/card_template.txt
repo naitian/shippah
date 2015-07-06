@@ -1,0 +1,23 @@
+<div class='card_header'>
+	<div class='card_title'>
+		<p>[SHIPNAME]</p>
+	</div>
+</div>
+<div class='card_main'>
+	<div class='card_persons'>
+		<div class='card_person_1'>
+			<div class='card_pic_1'>
+			</div>
+			<div class='card_name_1'>
+				<p>[CARD_NAME_1]</p>
+			</div>
+		</div>
+		<div class='card_person_2'>	
+			<div class='card_pic_2'>
+			</div>
+			<div class='card_name_2'>
+				<p>[CARD_NAME_2]</p>
+			</div>
+		</div>
+	</div>
+</div>
