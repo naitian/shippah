@@ -1,0 +1,25 @@
+<div class='add_ship_dialog'>
+	<div class='add_ship_header'>
+		<div class='add_ship_shipname'>
+			<p spellcheck=false contenteditable=true>Shipname</p>
+		</div>
+	</div>
+	<div class='add_ship_main'>
+		<div class='add_ship_persons'>
+			<div class='add_ship_person_1'>
+				<div class='add_ship_pic_1' style='background-image: url("http://www.wessex-tubas.com/wp-content/uploads/2012/08/800.jpg"); background-position: 20% 0%; background-size: 200% auto;'>
+				</div>
+				<div class='add_ship_name_1'>
+					<p spellcheck=false contenteditable=true>Name 1</p>
+				</div>
+			</div>
+			<div class='add_ship_person_2'>	
+				<div class='add_ship_pic_2' style='background-image: url("http://www.best-free-wallpaper.org/wp-content/uploads/2014/09/jpg-images.jpg"); background-position: 21% 0%; background-size: 200% auto;'>
+				</div>
+				<div class='add_ship_name_2'>
+					<p spellcheck=false contenteditable=true>Name 2</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
