@@ -151,13 +151,22 @@ div, p {
 
 .add_ship_dialog {
 	position: absolute;
-	left: 50px;
-	top: 50px;
+	left: 0px;
+	top: 0px;
 	background: #FFF;
 	text-align: center;
+	visibility: hidden;
+	border-radius: 20px;
+}
+
+.add_ship_triangle {
+	position: absolute;
+	width: 30px;
+	height: 15px;
 }
 
 .add_ship_header {
+	border-radius: 20px 20px 0px 0px;
 	width: 100%;
 	height: 50px; /*HEIGHTS WILL BE CALCULATED VIA JAVASCRIPT*/
 	background: rgb(231, 104, 95);
@@ -198,6 +207,11 @@ div, p {
 	border-radius: 64px;
 	background-repeat: no-repeat;
 	margin: 0px 20px 10px;
+}
+
+.add_ship_pic_1 img, .add_ship_pic_2 img {
+	width: 50%;
+	height: 128px;
 }
 
 .add_ship_name_1 p, .add_ship_name_2 p {
