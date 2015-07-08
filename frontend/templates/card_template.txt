@@ -6,17 +6,17 @@
 <div class='card_main'>
 	<div class='card_persons'>
 		<div class='card_person_1'>
-			<div class='card_pic_1'>
+			<div class='card_pic_1' style='background-url: url("[PIC_1]"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>
 			</div>
 			<div class='card_name_1'>
-				<p>[CARD_NAME_1]</p>
+				<p>[NAME_1]</p>
 			</div>
 		</div>
-		<div class='card_person_2'>	
+		<div class='card_person_2' style='background-url: url("[PIC_1]"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>	
 			<div class='card_pic_2'>
 			</div>
 			<div class='card_name_2'>
-				<p>[CARD_NAME_2]</p>
+				<p>[NAME_2]</p>
 			</div>
 		</div>
 	</div>
