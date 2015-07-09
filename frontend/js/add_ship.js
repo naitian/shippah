@@ -1,26 +1,30 @@
-var cardTemplate = "<div><div class='card_header'>" +
-	"<div class='card_title'>" +
-		"<p>[SHIPNAME]</p>" +
-	"</div>" +
-"</div>" +
-"<div class='card_main'>" +
-	"<div class='card_persons'>" +
-		"<div class='card_person_1'>" +
-			"<div class='card_pic_1' style='background-url: url(\"[PIC_1]\"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>" +
-			"</div>" +
-			"<div class='card_name_1'>" +
-				"<p>[NAME_1]</p>" +
-			"</div>" +
-		"</div>" +
-		"<div class='card_person_2' style='background-url: url(\"[PIC_1]\"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>" +	
-			"<div class='card_pic_2'>" +
-			"</div>" +
-			"<div class='card_name_2'>" +
-				"<p>[NAME_2]</p>" +
-			"</div>" +
+var cardTemplate = "" +
+"<div>" +
+	"<div class='card_header'>" +
+		"<div class='card_title'>" +
+			"<p>[SHIPNAME]</p>" +
 		"</div>" +
 	"</div>" +
-"</div></div>";
+	"<div class='card_main'>" +
+		"<div class='card_persons'>" +
+			"<div class='card_person_1'>" +
+				"<div class='card_pic_1' style='background-url: url(\"[PIC_1]\"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>" +
+				"</div>" +
+				"<div class='card_name_1'>" +
+					"<p>[NAME_1]</p>" +
+				"</div>" +
+			"</div>" +
+			"<div class='card_person_2' style='background-url: url(\"[PIC_1]\"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>" +	
+				"<div class='card_pic_2'>" +
+				"</div>" +
+				"<div class='card_name_2'>" +
+					"<p>[NAME_2]</p>" +
+				"</div>" +
+			"</div>" +
+		"</div>" +
+	"</div>" +
+"</div>";
+
 
 function addShipToHTML(shipname, name_1, pic_1, pos_x_1, pos_y_1, scale_1, name_2, pic_2, pos_x_2, pos_y_2, scale_2){
 	template = cardTemplate.slice(0);
@@ -39,31 +43,74 @@ function addShipToHTML(shipname, name_1, pic_1, pos_x_1, pos_y_1, scale_1, name_
 	$('.ships').html($('.ships').html() + template);
 }
 
-$('.add_ship_heart').click(function(){
-	//addShipToHTML('OBrocolli', 'Barack', '', '', '', '', 'Obama', '', '', '', '');
-	if($('.add_ship').css('visibility') == 'hidden'){
-		$('.overlay').css('z-index','1');
-		$('.add_ship').css('visibility', 'visible').css('z-index', '2');
-		$('.add_ship_dialog').css('left','calc(50% - ' +  $('.add_ship_dialog').width() / 2 + 'px)')
-							 .css('top','calc(50% - ' +  $('.add_ship_dialog').height() / 2 + 'px)');
+function createObjectURL(object) {
+	if(window.URL){
+		return window.URL.createObjectURL(object);
 	} else {
-		$('.overlay').css('z-index','-1');
-		$('.add_ship').css('visibility', 'hidden').css('z-index', '-1');
+		return window.webkitURL.createObjectURL(object);
 	}
-		/*$('.add_ship_dialog_path').css('top',($(this).position()['top'] + $(this).height() + 5))
-								 .css('left', ($(this).position()['left'] - $('.add_ship_dialog').width() + $(this).parent().width()) + 5)
-								 .animate({height: '285px'}, 250);
-		$('.add_ship_dialog').css('top',($(this).position()['top'] + $(this).height() - 6))
-							 .css('left', ($(this).position()['left'] - $('.add_ship_dialog').width() + $(this).parent().width() / 2) + 5)
-							 .animate({opacity: 1}, 100)
-		/*$('.add_ship_triangle').css('left',$('.add_ship_dialog').width() - $('.add_ship_triangle').width() - 9.5)
-							   .css('bottom', $('.add_ship_dialog').height() - 45)
-							   .delay(125)
-							   .animate({opacity: '1'}, 250);
-	} else {
-		$('.add_ship_dialog').animate({opacity: 0}, 100);
-		$('.add_ship_triangle').animate({opacity: '0'}, 250);
-		$('.add_ship_dialog_path').delay(125)
-								  .animate({height: '0px'}, 250)
-	}*/
+}
+
+$('.add_ship_heart').click(function(){
+	$('.overlay').css('z-index','1');
+	$('.add_ship').css('visibility', 'visible').css('z-index', '2');
+	$('.add_ship_dialog').css('left','calc(50% - ' +  $('.add_ship_dialog').width() / 2 + 'px)')
+						 .css('top','calc(50% - ' +  $('.add_ship_dialog').height() / 2 + 'px)');
+});
+
+$('.add_ship_dialog').click(function(e) {
+    e.stopPropagation();
+});
+
+$('.add_ship').click(function(){$('.overlay').css('z-index','-1');
+		$('.add_ship').css('visibility', 'hidden').css('z-index', '-1');
+});
+
+$('.add_ship_pic_1').click(function(){
+	$('#file_pic_1').trigger('click');
+});
+
+$('.add_ship_pic_2').click(function(){
+	$('#file_pic_2').trigger('click');
+});
+
+$('#file_pic_1').on('change', function(ev){
+	$('.add_ship_pic_1').unbind('click');
+	files = ev.target.files;
+	var reader = new FileReader();
+	reader.onload = (function(theFile) {
+        return function(e) {
+          $('.add_ship_pic_1').css('background','url("' + e.target.result + '")');
+        };
+      })(files[0]);
+	reader.readAsDataURL(files[0]);
+	$('.add_ship_pic_1').val('1');
+});
+
+$('#file_pic_2').on('change', function(ev){
+	$('.add_ship_pic_2').unbind('click');
+	files = ev.target.files;	
+	var reader = new FileReader();
+	reader.onload = (function(theFile) {
+        return function(e) {
+          $('.add_ship_pic_2').css('background','url("' + e.target.result + '")');
+        };
+      })(files[0]);
+	reader.readAsDataURL(files[0]);
+	$('.add_ship_pic_2').val('1');
+});
+
+
+$('.add_ship_pic_1').mousedown(function(ev){
+	if($('.add_ship_pic_1').val() == '1'){
+		initX = ev.pageX;
+		initY = ev.pageY;
+	}
+});
+
+$('.add_ship_pic_1').mousemove(function(ev){
+	if($('.add_ship_pic_1').val() == '1'){
+		initX = ev.pageX;
+		initY = ev.pageY;
+	}
 });
