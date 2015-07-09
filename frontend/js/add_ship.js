@@ -40,9 +40,16 @@ function addShipToHTML(shipname, name_1, pic_1, pos_x_1, pos_y_1, scale_1, name_
 }
 
 $('.add_ship_heart').click(function(){
-	addShipToHTML('OBrocolli', 'Barack', '', '', '', '', 'Obama', '', '', '', '');
-	/*
-	if($('.add_ship_dialog').css('opacity') == 0){
+	//addShipToHTML('OBrocolli', 'Barack', '', '', '', '', 'Obama', '', '', '', '');
+	if($('.add_ship').css('visibility') == 'hidden'){
+		$('.overlay').css('z-index','1');
+		$('.add_ship').css('visibility', 'visible').css('z-index', '2');
+		$('.add_ship_dialog').css('left','calc(50% - ' +  $('.add_ship_dialog').width() / 2 + 'px)')
+							 .css('top','calc(50% - ' +  $('.add_ship_dialog').height() / 2 + 'px)');
+	} else {
+		$('.overlay').css('z-index','-1');
+		$('.add_ship').css('visibility', 'hidden').css('z-index', '-1');
+	}
 		/*$('.add_ship_dialog_path').css('top',($(this).position()['top'] + $(this).height() + 5))
 								 .css('left', ($(this).position()['left'] - $('.add_ship_dialog').width() + $(this).parent().width()) + 5)
 								 .animate({height: '285px'}, 250);
