@@ -80,7 +80,7 @@ $('#file_pic_1').on('change', function(ev){
 	var reader = new FileReader();
 	reader.onload = (function(theFile) {
         return function(e) {
-          $('.add_ship_pic_1').css('background','url("' + e.target.result + '")');
+          $('.add_ship_pic_1').css('background','url("' + e.target.result + '") no-repeat');
         };
       })(files[0]);
 	reader.readAsDataURL(files[0]);
@@ -93,7 +93,7 @@ $('#file_pic_2').on('change', function(ev){
 	var reader = new FileReader();
 	reader.onload = (function(theFile) {
         return function(e) {
-          $('.add_ship_pic_2').css('background','url("' + e.target.result + '")');
+          $('.add_ship_pic_2').css('background','url("' + e.target.result + '") no-repeat');
         };
       })(files[0]);
 	reader.readAsDataURL(files[0]);
@@ -101,16 +101,66 @@ $('#file_pic_2').on('change', function(ev){
 });
 
 
+var initX = 0;
+var initY = 0;
+var curX = 0;
+var curY = 0;
+var draggingPic1 = false;
+var draggingPic2 = false;
+var picInitX = 0;
+var picInitY = 0;
+
 $('.add_ship_pic_1').mousedown(function(ev){
 	if($('.add_ship_pic_1').val() == '1'){
 		initX = ev.pageX;
 		initY = ev.pageY;
+		var bp = $('.add_ship_pic_1').css('background-position');
+		bp = bp.replace('px','');
+		bp = bp.replace('%','');
+		picInitX = parseInt(bp.substring(0, bp.indexOf(' ')));
+		picInitY = parseInt(bp.substring(bp.indexOf(' ') + 1));
+		draggingPic1 = true;
+		$('.add_ship *').addClass('noselect');
 	}
 });
 
-$('.add_ship_pic_1').mousemove(function(ev){
-	if($('.add_ship_pic_1').val() == '1'){
+
+$('.add_ship_pic_2').mousedown(function(ev){
+	if($('.add_ship_pic_2').val() == '1'){
 		initX = ev.pageX;
 		initY = ev.pageY;
+		var bp = $('.add_ship_pic_2').css('background-position');
+		bp = bp.replace('px','');
+		bp = bp.replace('%','');
+		picInitX = parseInt(bp.substring(0, bp.indexOf(' ')));
+		picInitY = parseInt(bp.substring(bp.indexOf(' ') + 1));
+		draggingPic2 = true;
+		$('.add_ship *').addClass('noselect');
 	}
+});
+
+
+$(document).mousemove(function(ev){
+	if(draggingPic1 || draggingPic2){
+		curX = ev.pageX;
+		curY = ev.pageY;
+		dispX = picInitX + curX - initX;
+		dispY = picInitY + curY - initY;
+		if(dispX > 0){
+			dispX = 0;
+		}
+		if(dispY > 0){
+			dispY = 0;
+		}
+		if(draggingPic1)
+			$('.add_ship_pic_1').css('background-position', dispX + 'px ' + dispY + 'px');
+		if(draggingPic2)
+			$('.add_ship_pic_2').css('background-position', dispX + 'px ' + dispY + 'px');
+	}
+});
+
+$(document).mouseup(function(ev){
+	draggingPic1 = false;
+	draggingPic2 = false;
+	$('.add_ship *').removeClass('noselect');
 });
