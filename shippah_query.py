@@ -12,6 +12,31 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-def get_recent(days){
+def get_recent(num):
+	ships = session.query(Ship).order_by(desc(Ship.time)).limit(num).all()
+	
+	serial_array =  []
+	for ship in ships:
+		tags = []
+		tags_query = session.query(ShipTag).filter_by(ship_id = ship.id).all()
+		for tag in tags_query:
+			tags.append(tag.tag.name)
 
-}
+		serial_array.append({
+				'id': ship.id,
+				'name': ship.name.name,
+				'users': {
+					'user1': {
+						'name': ship.user_1.name.name,
+
+					},
+					'user2': {
+						'name': ship.user_2.name.name,
+
+					},
+				},
+				'time': ship.time,
+				'votes': ship.votes,
+				'tags': tags,
+			})
+	return serial_array
