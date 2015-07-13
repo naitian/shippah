@@ -36,7 +36,7 @@ def addShip(name, user_item_1, user_item_2, tags): #removed votes here
 def addUser(user):
 	if user.getImage():
 		image = user.getImage()
-		new_image = Image(x_coord=image.getX(), y_coord=image.getY(), path=image.getPath())
+		new_image = Image(x_coord=image.getX(), y_coord=image.getY(), zoom=image.getZoom(), path=image.getPath())
 		session.add(new_image)
 	else:
 		new_image=None

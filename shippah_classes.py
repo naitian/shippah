@@ -8,14 +8,17 @@ class User_Item:
 		return self.i
 
 class Image_Item:
-	def __init__(self, x_coord, y_coord, path):
+	def __init__(self, x_coord, y_coord, zoom, path):
 		self.x = x_coord
 		self.y = y_coord
+		self.z = zoom
 		self.p = path
 	def getX(self):
 		return self.x
 	def getY(self):
 		return self.y
+	def getZoom(self):
+		return self.z
 	def getPath(self):
 		return self.p
 

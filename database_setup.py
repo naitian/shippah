@@ -20,6 +20,7 @@ class Image(Base):
     x_coord = Column(Integer, nullable=False)
     y_coord = Column(Integer, nullable=False)
     path = Column(String(250), nullable=False)
+    zoom = Column(Integer, nullable=False)
 
 
 class User(Base):
@@ -42,6 +43,7 @@ class Ship(Base):
     user_2 = relationship(User, foreign_keys=[user_id_2])
     time = Column(DateTime, nullable=False)
     votes = Column(Integer, nullable=False)
+
 
 class ShipTag(Base):
     __tablename__ = 'ship_tag'
