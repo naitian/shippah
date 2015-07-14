@@ -1,14 +1,21 @@
-#test
 import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Table
 
 Base = declarative_base()
 
 database_path = 'sqlite:///shippah.db'
+
+
+
+
+ship_tag_table = Table('ship_tag', Base.metadata, 
+    Column('ship_id', Integer, ForeignKey('ship.id')), 
+    Column('tag_id', Integer, ForeignKey('tag.id'))
+    )
 
 class Tag(Base):
     __tablename__ = 'tag'
@@ -44,15 +51,7 @@ class Ship(Base):
     user_2 = relationship(User, foreign_keys=[user_id_2])
     time = Column(DateTime, nullable=False)
     votes = Column(Integer, nullable=False)
-
-
-class ShipTag(Base):
-    __tablename__ = 'ship_tag'
-    id = Column(Integer, primary_key=True)
-    ship_id = Column(String(250), ForeignKey(Ship.id), nullable=False)
-    ship = relationship(Ship)
-    tag_id = Column(String(250), ForeignKey(Tag.id), nullable=False)
-    tag = relationship(Tag)
+    tags = relationship('Tag', secondary=ship_tag_table, backref='ships')
 
 
 engine = create_engine(database_path)
