@@ -13,58 +13,21 @@ session = DBSession()
 
 
 def get_recent(num):
-	ships = session.query(Ship).order_by(desc(Ship.time)).limit(num).all()
+	return session.query(Ship).order_by(desc(Ship.time)).limit(num).all()
 	
-	serial_array =  []
-	for ship in ships:
-		tags = []
-		tags_query = session.query(ShipTag).filter_by(ship_id = ship.id).all()
-		for tag in tags_query:
-			tags.append(tag.tag.name)
 
-		serial_array.append({
-				'id': ship.id,
-				'name': ship.name.name,
-				'users': {
-					'user1': {
-						'name': ship.user_1.name.name,
+def get_popular(num):
+	return session.query(Ship).order_by(desc(Ship.votes)).limit(num).all()
 
-					},
-					'user2': {
-						'name': ship.user_2.name.name,
 
-					},
-				},
-				'time': ship.time,
-				'votes': ship.votes,
-				'tags': tags,
-			})
-	return serial_array
-
-def get_recent_tags(num, tagsList):
-	ships = session.query(Ship).order_by(desc(Ship.time)).limit(num).all()
-	serial_array =  []
-	for ship in ships:
-		tags = []
-		tags_query = session.query(ShipTag).filter_by(ship_id = ship.id).all()
-		for tag in tags_query:
-			tags.append(tag.tag.name)
-
-		serial_array.append({
-				'id': ship.id,
-				'name': ship.name.name,
-				'users': {
-					'user1': {
-						'name': ship.user_1.name.name,
-
-					},
-					'user2': {
-						'name': ship.user_2.name.name,
-
-					},
-				},
-				'time': ship.time,
-				'votes': ship.votes,
-				'tags': tags,
-			})
-	return serial_array
+def get_tags(num, tagsList):
+	tags_array = []
+	ships_temp_array = []
+	ships = []
+	for truck in tagsList:
+		tags_array.append(session.query(Tag).filter_by(name=truck).one())
+	for tag in tags_array:
+		ships_temp_array += session.query(ShipTag).filter_by(tag_id=tag.id).all()
+	for ship in ships_temp_array:
+		ships.append(ship.ship)
+	return ships
