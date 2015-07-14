@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, jsonify
 from shippah_query import *
+from shippah_increment import *
 
 app = Flask(__name__)
 
@@ -12,6 +13,36 @@ engine = create_engine('sqlite:///shippah.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+@app.route('/api/get_ships_by_tag/', methods=['POST'])
+def get_ships_by_tag():
+	tagsList = request.get_json()
+	ships = get_tags(10, tagsList)
+	serial_array =  []
+	for ship in ships:
+		tags = []
+		tags_query = session.query(ShipTag).filter_by(ship_id = ship.id).all()
+		for tag in tags_query:
+			tags.append(tag.tag.name)
+
+		serial_array.append({
+				'id': ship.id,
+				'name': ship.name.name,
+				'users': {
+					'user1': {
+						'name': ship.user_1.name.name,
+
+					},
+					'user2': {
+						'name': ship.user_2.name.name,
+
+					},
+				},
+				'time': ship.time,
+				'votes': ship.votes,
+				'tags': tags,
+			})
+	return jsonify(Ships=serial_array)
 
 @app.route('/api/get_ships/sortBy=<type>/')
 def get_ships(type):
