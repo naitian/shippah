@@ -74,32 +74,34 @@ $('.add_ship_pic_2').click(function(){
 	$('#file_pic_2').trigger('click');
 });
 
-$('#file_pic_1').on('change', function(ev){
-	$('.add_ship_pic_1').unbind('click');
-	files = ev.target.files;
+$('#file_pic_1').on('change', function(){
+	$('.edit_pic_1_dialog').css('visibility','visible')
+						   .css('left','calc(50% - ' + ($('.add_ship_dialog').width() / 2 + $('.edit_pic_1_dialog').width() + 20) + 'px)')
+						   .css('top','calc(50% - ' +  $('.edit_pic_1_dialog').height() / 2 + 'px)');
+	
 	var reader = new FileReader();
-	reader.onload = (function(theFile) {
-        return function(e) {
-          $('.add_ship_pic_1').css('background','url("' + e.target.result + '") no-repeat');
-        };
-      })(files[0]);
-	reader.readAsDataURL(files[0]);
-	$('.add_ship_pic_1').val('1');
+	var img = new Image();
+	reader.readAsDataURL(this.files[0]);
+	reader.onload = function(ev){
+		img.src = ev.target.result;
+		img.onload = function(){
+			$('.edit_pic_1').css('background','url("' + img.src +'") no-repeat')
+							.css('background-position','0 50%');
+			if(this.width > this.height){
+				$('.edit_pic_1').css('background-size','100% auto');
+				var ratio = parseInt($('.edit_pic_1').css('width').substring(0, $('.edit_pic_1').css('width').indexOf('px'))) / this.width;
+				$('.edit_pic_1').css('width', this.width * ratio);
+				$('.edit_pic_1').css('height', this.height * ratio);
+			} else {
+				$('.edit_pic_1').css('background-size','auto 100%');
+			}
+			$('.edit_pic_1').imgAreaSelect({
+				aspectRatio: '1:1',
+				handles: true
+			});
+		}
+	};
 });
-
-$('#file_pic_2').on('change', function(ev){
-	$('.add_ship_pic_2').unbind('click');
-	files = ev.target.files;	
-	var reader = new FileReader();
-	reader.onload = (function(theFile) {
-        return function(e) {
-          $('.add_ship_pic_2').css('background','url("' + e.target.result + '") no-repeat');
-        };
-      })(files[0]);
-	reader.readAsDataURL(files[0]);
-	$('.add_ship_pic_2').val('1');
-});
-
 
 var initX = 0;
 var initY = 0;
@@ -109,36 +111,6 @@ var draggingPic1 = false;
 var draggingPic2 = false;
 var picInitX = 0;
 var picInitY = 0;
-
-$('.add_ship_pic_1').mousedown(function(ev){
-	if($('.add_ship_pic_1').val() == '1'){
-		initX = ev.pageX;
-		initY = ev.pageY;
-		var bp = $('.add_ship_pic_1').css('background-position');
-		bp = bp.replace('px','');
-		bp = bp.replace('%','');
-		picInitX = parseInt(bp.substring(0, bp.indexOf(' ')));
-		picInitY = parseInt(bp.substring(bp.indexOf(' ') + 1));
-		draggingPic1 = true;
-		$('.add_ship *').addClass('noselect');
-	}
-});
-
-
-$('.add_ship_pic_2').mousedown(function(ev){
-	if($('.add_ship_pic_2').val() == '1'){
-		initX = ev.pageX;
-		initY = ev.pageY;
-		var bp = $('.add_ship_pic_2').css('background-position');
-		bp = bp.replace('px','');
-		bp = bp.replace('%','');
-		picInitX = parseInt(bp.substring(0, bp.indexOf(' ')));
-		picInitY = parseInt(bp.substring(bp.indexOf(' ') + 1));
-		draggingPic2 = true;
-		$('.add_ship *').addClass('noselect');
-	}
-});
-
 
 $(document).mousemove(function(ev){
 	if(draggingPic1 || draggingPic2){
