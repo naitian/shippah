@@ -81,6 +81,9 @@ $('.add_ship_heart').click(function(){
 	$('.add_ship').css('visibility', 'visible').css('z-index', '2');
 	$('.add_ship_dialog').css('left','calc(50% - ' +  $('.add_ship_dialog').width() / 2 + 'px)')
 						 .css('top','calc(50% - ' +  $('.add_ship_dialog').height() / 2 + 'px)');
+	$('.add_ship_shipname input').val('');
+	$('.add_ship_name_1 input').val('');
+	$('.add_ship_name_2 input').val('');
 });
 
 $('.add_ship_dialog').click(function(e) {
@@ -113,6 +116,14 @@ $('.add_ship_pic_2').click(function(){
 });
 
 $('#file_pic_1').on('change', function(){
+	if(this.files[0].type.indexOf('image') == -1){
+		console.log('File not a support image type');
+		return;
+	}
+	if(this.files[0].size / 1024 / 1024 > 5){
+		console.log('Upload an image more than 5MB');
+		return;
+	}
 	$('.edit_pic_1_dialog').css('visibility','visible')
 						   .css('left','calc(50% - ' + ($('.add_ship_dialog').width() / 2 + $('.edit_pic_1_dialog').width() + 20) + 'px)')
 						   .css('top','calc(50% - ' +  $('.edit_pic_1_dialog').height() / 2 + 'px)');
@@ -146,6 +157,7 @@ $('#file_pic_1').on('change', function(){
 				y1: 0,
 				x2: 100,
 				y2: 100,
+				onInit: previewPic1,
 				onSelectChange: previewPic1,
 				instance: true,
 			});
@@ -186,6 +198,7 @@ $('#file_pic_2').on('change', function(){
 				y1: 0,
 				x2: 100,
 				y2: 100,
+				onInit: previewPic2,
 				onSelectChange: previewPic2,
 				instance: true,
 			});

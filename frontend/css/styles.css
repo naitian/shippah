@@ -85,7 +85,7 @@ input {
 }
 
 #search_bar input {
-	width: calc(100% - 88px);
+	width: calc(100% - 89px);
 	height: 64px;
 	padding-left: 5px;
 	vertical-align: middle;
@@ -205,11 +205,15 @@ input {
 	vertical-align: middle;
 }
 
-.add_ship_shipname p {
+.add_ship_shipname input {
+	border: none;
+	background: none;
+	text-align: center;
 	color: #FFF;
 	font-size: 24px;
 	outline: 0;
 	text-decoration: underline;
+	width: 90%;
 }
 
 .add_ship_main {
@@ -233,14 +237,20 @@ input {
 	height: 128px;
 	border-radius: 64px;
 	background-repeat: no-repeat;
-	margin: 0px 20px 10px;
+	margin: auto;
+	margin-bottom: 10px;
 	cursor: pointer;
 	background-position: 0px 0px;
 }
 
-.add_ship_name_1 p, .add_ship_name_2 p {
+.add_ship_name_1 input, .add_ship_name_2 input {
+	border: none;
+	background: none;
+	text-align: center;
+	color: #FFF;
 	color: #E7685F;
 	outline: 0;
+	font-size: 18px;
 	text-decoration: underline;
 }
 
