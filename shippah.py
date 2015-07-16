@@ -18,31 +18,8 @@ session = DBSession()
 def get_ships_by_tag():
 	tagsList = request.get_json()
 	ships = get_tags(10, tagsList)
-	serial_array =  []
-	for ship in ships:
-		tags = []
-		tags_query = session.query(ShipTag).filter_by(ship_id = ship.id).all()
-		for tag in tags_query:
-			tags.append(tag.tag.name)
-
-		serial_array.append({
-				'id': ship.id,
-				'name': ship.name.name,
-				'users': {
-					'user1': {
-						'name': ship.user_1.name.name,
-
-					},
-					'user2': {
-						'name': ship.user_2.name.name,
-
-					},
-				},
-				'time': ship.time,
-				'votes': ship.votes,
-				'tags': tags,
-			})
-	return jsonify(Ships=serial_array)
+	
+	return jsonify(Ships=ships)
 
 @app.route('/api/get_ships/sortBy=<type>/')
 def get_ships(type):
@@ -50,31 +27,7 @@ def get_ships(type):
 		ships = get_recent(10);
 	elif type == "popular":
 		ships = get_popular(10);
-	serial_array =  []
-	for ship in ships:
-		tags = []
-		tags_query = session.query(ShipTag).filter_by(ship_id = ship.id).all()
-		for tag in tags_query:
-			tags.append(tag.tag.name)
-
-		serial_array.append({
-				'id': ship.id,
-				'name': ship.name.name,
-				'users': {
-					'user1': {
-						'name': ship.user_1.name.name,
-
-					},
-					'user2': {
-						'name': ship.user_2.name.name,
-
-					},
-				},
-				'time': ship.time,
-				'votes': ship.votes,
-				'tags': tags,
-			})
-	return jsonify(Ships=serial_array)
+	return jsonify(Ships=ships)
 	
 
 if __name__ == '__main__':
