@@ -263,7 +263,7 @@ input {
 	border-color: #E7685F;
 }
 
-.edit_pic_1_dialog {
+.edit_pic_1_dialog, .edit_pic_2_dialog {
 	background: #FFF;
 	text-align: center;
 	display: table-cell;
@@ -275,19 +275,19 @@ input {
 	visibility: hidden;
 }
 
-.edit_pic_1_header {
+.edit_pic_1_header, .edit_pic_2_header {
 	width: 100%;
 	height: 50px;
 	background: #E7685F;
 }
 
-.edit_pic_1_main {
+.edit_pic_1_main, .edit_pic_2_main {
 	width: 100%;
 	height: calc(100% - 70px);
 	padding-top: 20px;
 }
 
-.edit_pic_1 {
+.edit_pic_1, .edit_pic_2 {
 	width: calc(100% - 40px);
 	height: calc(100% - 20px);
 	margin: 0 20px 0;

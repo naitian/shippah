@@ -85,7 +85,7 @@ $.imgAreaSelect = function (img, options) {
         parOfs = { left: 0, top: 0 },
         
         /* Base z-index for plugin elements */
-        zIndex = 5,
+        zIndex = 0,
                 
         /* Plugin elements position */
         position = 'absolute',
