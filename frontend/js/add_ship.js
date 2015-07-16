@@ -26,6 +26,123 @@ var cardTemplate = "" +
 "</div>";
 
 
+
+/*
+			<div class='edit_pic_1_dialog'>
+				<div class='edit_pic_1_header'>
+				</div>
+				<div class='edit_pic_1_main'>
+					<div class='edit_pic_1'>
+					</div>
+				</div>
+			</div>
+			<div class='add_ship_dialog'>
+				<div class='add_ship_header'>
+					<div class='add_ship_shipname'>
+						<input placeholder='Shipname' spellcheck=false></input>
+					</div>
+				</div>
+				<div class='add_ship_main'>
+					<div class='add_ship_persons'>
+						<input type='file' id='file_pic_1' style='display: none' name='file' />
+						<input type='file' id='file_pic_2' style='display: none' name='file'/>
+						<div class='add_ship_person_1'>
+							<div class='add_ship_pic_1' style='background-image: url("http://www.aheritier.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"); background-size: 100% auto;'>
+							</div>
+							<div class='add_ship_name_1'>
+								<input placeholder='Name 1' spellcheck=false></input>
+							</div>
+						</div>
+						<div class='add_ship_person_2'>	
+							<div class='add_ship_pic_2' style='background-image: url("http://www.aheritier.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"); background-size: 100% auto;'>
+							</div>
+							<div class='add_ship_name_2'>
+								<input placeholder='Name 2' spellcheck=false></input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='add_ship_tags'>
+					<div class='add_ship_tags_input'>
+						<input placeholder='Enter tags here...' spellcheck=false></input>
+					</div>
+					<div class='add_ship_tags_display'>
+						<p></p>
+					</div>
+				</div>
+				<div class='add_ship_button'>
+					<input type='button' value='ship'></input>
+				</div>
+			</div>
+			<div class='edit_pic_2_dialog'>
+				<div class='edit_pic_2_header'>
+					
+				</div>
+				<div class='edit_pic_2_main'>
+					<div class='edit_pic_2'>
+					</div>
+				</div>
+			</div>*/
+			
+
+var addShipTemplate = "" +
+"<div class='edit_pic_1_dialog'>" +
+	"<div class='edit_pic_1_header'>" +
+	"</div>" +
+	"<div class='edit_pic_1_main'>" +
+		"<div class='edit_pic_1'>" +
+		"</div>" +
+	"</div>" +
+"</div>" +
+"<div class='add_ship_dialog'>" +
+	"<div class='add_ship_header'>" +
+		"<div class='add_ship_shipname'>" +
+			"<input placeholder='Shipname' spellcheck=false></input>" +
+		"</div>" +
+	"</div>" +
+	"<div class='add_ship_main'>" +
+		"<div class='add_ship_persons'>" +
+			"<input type='file' id='file_pic_1' style='display: none' name='file' />" +
+			"<input type='file' id='file_pic_2' style='display: none' name='file'/>" +
+			"<div class='add_ship_person_1'>" +
+				"<div class='add_ship_pic_1' style='background-image: url(\"http://www.aheritier.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png\"); background-size: 100% auto;'>" +
+				"</div>" +
+				"<div class='add_ship_name_1'>" +
+					"<input placeholder='Name 1' spellcheck=false></input>" +
+				"</div>" +
+			"</div>" +
+			"<div class='add_ship_person_2'>" +	
+				"<div class='add_ship_pic_2' style='background-image: url(\"http://www.aheritier.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png\"); background-size: 100% auto;'>" +
+				"</div>" +
+				"<div class='add_ship_name_2'>" +
+					"<input placeholder='Name 2' spellcheck=false></input>" +
+				"</div>" +
+			"</div>" +
+		"</div>" +
+	"</div>" +
+	"<div class='add_ship_tags'>" +
+		"<div class='add_ship_tags_input'>" +
+			"<input placeholder='Enter tags here...' spellcheck=false></input>" +
+		"</div>" +
+		"<div class='add_ship_tags_display'>" +
+			"<p></p>" +
+		"</div>" +
+	"</div>" +
+	"<div class='add_ship_button'>" +
+		"<input type='button' value='ship'></input>" +
+	"</div>" +
+"</div>" +
+"<div class='edit_pic_2_dialog'>" +
+	"<div class='edit_pic_2_header'>" +	
+	"</div>" +
+	"<div class='edit_pic_2_main'>" +
+		"<div class='edit_pic_2'>" +
+		"</div>" +
+	"</div>" +
+"</div>";
+
+
+
 var editPic1Select, editPic2Select;
 
 
@@ -76,46 +193,44 @@ function previewPic2(img, selection){
 						.css('background-position', (-selection.x1 * scale / 100 * 128 / imgWidth) + 'px ' + (-selection.y1 * yscale / 100 * 128 / imgHeight) + 'px');
 }
 
-$('.add_ship_heart').click(function(){
+$('.add_ship_heart').on('click', function(){
+	$('.add_ship').html(addShipTemplate);
 	$('.overlay').css('z-index','1');
 	$('.add_ship').css('visibility', 'visible').css('z-index', '2');
 	$('.add_ship_dialog').css('left','calc(50% - ' +  $('.add_ship_dialog').width() / 2 + 'px)')
 						 .css('top','calc(50% - ' +  $('.add_ship_dialog').height() / 2 + 'px)');
-	$('.add_ship_shipname input').val('');
-	$('.add_ship_name_1 input').val('');
-	$('.add_ship_name_2 input').val('');
 });
 
-$('.add_ship_dialog').click(function(e) {
-    e.stopPropagation();
+$('.add_ship').click(function(ev){
+	if(ev.target.getAttribute('class') == 'add_ship'){
+		$('.overlay').css('z-index','-1');
+		$('.add_ship').html('');
+		$('.add_ship').css('visibility', 'hidden').css('z-index', '-1');
+		if(editPic1Select)
+			editPic1Select.cancelSelection();
+		if(editPic2Select)
+			editPic2Select.cancelSelection();
+	} else if(ev.target.getAttribute('class') == 'add_ship_pic_1'){
+		$('#file_pic_1').trigger('click');
+	} else if(ev.target.getAttribute('class') == 'add_ship_pic_2'){
+		$('#file_pic_2').trigger('click');
+	}
 });
 
-$('.edit_pic_1_dialog').click(function(e) {
-    e.stopPropagation();
+$(document).on('keydown', '.add_ship_tags_input input', function(ev){
+	if(ev.keyCode == 13){
+		if($('.add_ship_tags_input input').val() != ''){
+			if($('.add_ship_tags_display p').html() == ''){
+				$('.add_ship_tags_display p').html('Tags: ' + $('.add_ship_tags_input input').val());
+			} else {
+				$('.add_ship_tags_display p').html($('.add_ship_tags_display p').html() + ', ' + $('.add_ship_tags_input input').val());
+			}
+			$('.add_ship_tags_input input').val('');
+		}
+	}
 });
 
-$('.edit_pic_2_dialog').click(function(e) {
-    e.stopPropagation();
-});
-
-$('.add_ship').click(function(){
-	$('.overlay').css('z-index','-1');
-	$('.add_ship').css('visibility', 'hidden').css('z-index', '-1');
-	if(editPic1Select)
-		editPic1Select.cancelSelection();
-	if(editPic2Select)
-		editPic2Select.cancelSelection();
-});
-
-$('.add_ship_pic_1').click(function(){
-	$('#file_pic_1').trigger('click');
-});
-
-$('.add_ship_pic_2').click(function(){
-	$('#file_pic_2').trigger('click');
-});
-
-$('#file_pic_1').on('change', function(){
+$(document).on('change', '#file_pic_1', function(){
 	if(this.files[0].type.indexOf('image') == -1){
 		console.log('File not a support image type');
 		return;
@@ -152,7 +267,7 @@ $('#file_pic_1').on('change', function(){
 			$('.add_ship_pic_1').css('background-size', $('.edit_pic_1').css('background-size'));
 			editPic1Select = $('.edit_pic_1').imgAreaSelect({
 				aspectRatio: '1:1',
-				handles: true,
+				handles: 'corners',
 				x1: 0,
 				y1: 0,
 				x2: 100,
@@ -166,7 +281,15 @@ $('#file_pic_1').on('change', function(){
 });
 
 
-$('#file_pic_2').on('change', function(){
+$(document).on('change', '#file_pic_2', function(){
+	if(this.files[0].type.indexOf('image') == -1){
+		console.log('File not a support image type');
+		return;
+	}
+	if(this.files[0].size / 1024 / 1024 > 5){
+		console.log('Upload an image more than 5MB');
+		return;
+	}
 	$('.edit_pic_2_dialog').css('visibility','visible')
 						   .css('left','calc(50% + ' + ($('.add_ship_dialog').width() / 2 + 20) + 'px)')
 						   .css('top','calc(50% - ' +  $('.edit_pic_2_dialog').height() / 2 + 'px)');
@@ -193,7 +316,7 @@ $('#file_pic_2').on('change', function(){
 			$('.add_ship_pic_2').css('background-size', $('.edit_pic_2').css('background-size'));
 			editPic2Select = $('.edit_pic_2').imgAreaSelect({
 				aspectRatio: '1:1',
-				handles: true,
+				handles: 'corners',
 				x1: 0,
 				y1: 0,
 				x2: 100,
