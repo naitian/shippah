@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from database_setup import Base, Ship, User, Tag, ShipTag, Image
-from shippah_classes import User_Item, Image_Item, Ship_Item
 from datetime import datetime
 
 database_path = 'sqlite:///shippah.db'
