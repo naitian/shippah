@@ -20,7 +20,6 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name_id = Column(Integer, ForeignKey(Tag.id), nullable=False)
     name = relationship(Tag)
-    image = Column(String(250))
 
 
 class Ship(Base):
