@@ -1,4 +1,3 @@
-from shippah_classes import *
 from shippah_insert import *
 
 addShip('Naitina', User_Item('Naitian'), User_Item('Nina'), ['TJHSST', 'yolo', 'freshmen', 'adorbs'])

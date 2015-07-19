@@ -1,5 +1,4 @@
 
-from shippah_classes import User_Item, Image_Item, Ship_Item
 from datetime import datetime
 
 from sqlalchemy import create_engine, desc, update

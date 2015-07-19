@@ -1,30 +1,3 @@
-var cardTemplate = "" +
-"<div>" +
-	"<div class='card_header'>" +
-		"<div class='card_title'>" +
-			"<p>[SHIPNAME]</p>" +
-		"</div>" +
-	"</div>" +
-	"<div class='card_main'>" +
-		"<div class='card_persons'>" +
-			"<div class='card_person_1'>" +
-				"<div class='card_pic_1' style='background-url: url(\"[PIC_1]\"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>" +
-				"</div>" +
-				"<div class='card_name_1'>" +
-					"<p>[NAME_1]</p>" +
-				"</div>" +
-			"</div>" +
-			"<div class='card_person_2' style='background-url: url(\"[PIC_1]\"); background-position: [POS_X_1]% [POS_Y_1]%; background-size: [SCALE_1]% auto;'>" +	
-				"<div class='card_pic_2'>" +
-				"</div>" +
-				"<div class='card_name_2'>" +
-					"<p>[NAME_2]</p>" +
-				"</div>" +
-			"</div>" +
-		"</div>" +
-	"</div>" +
-"</div>";
-
 
 
 /*
@@ -146,23 +119,6 @@ var addShipTemplate = "" +
 var editPic1Select, editPic2Select;
 
 
-function addShipToHTML(shipname, name_1, pic_1, pos_x_1, pos_y_1, scale_1, name_2, pic_2, pos_x_2, pos_y_2, scale_2){
-	template = cardTemplate.slice(0);
-	console.log(shipname);
-	template = template.replace("[SHIPNAME]", shipname);
-	template = template.replace("[NAME_1]",name_1)
-	template = template.replace("[PIC_1]", pic_1)
-	template = template.replace("[POS_X_1]", pos_x_1)
-	template = template.replace("[POS_Y_1]", pos_y_1)
-	template = template.replace("[SCALE_1]", scale_1)
-	template = template.replace("[NAME_2]",name_2)
-	template = template.replace("[PIC_2]", pic_2)
-	template = template.replace("[POS_X_2]", pos_x_2)
-	template = template.replace("[POS_Y_2]", pos_y_2)
-	template = template.replace("[SCALE_2]", scale_2);
-	$('.ships').html($('.ships').html() + template);
-}
-
 function createObjectURL(object) {
 	if(window.URL){
 		return window.URL.createObjectURL(object);
@@ -177,7 +133,6 @@ function previewPic1(img, selection){
 	var xscale = 100 * imgWidth / selection.width;
 	var yscale = 100 * imgHeight / selection.height;
 	var scale = imgWidth > imgHeight ? xscale : yscale;
-	console.log(scale);
 	$('.add_ship_pic_1').css('background-size', scale + '% auto')
 						.css('background-position', (-selection.x1 * scale / 100 * 128 / imgWidth) + 'px ' + (-selection.y1 * yscale / 100 * 128 / imgHeight) + 'px');
 }
@@ -188,21 +143,25 @@ function previewPic2(img, selection){
 	var xscale = 100 * imgWidth / selection.width;
 	var yscale = 100 * imgHeight / selection.height;
 	var scale = imgWidth > imgHeight ? xscale : yscale;
-	console.log(scale);
 	$('.add_ship_pic_2').css('background-size', scale + '% auto')
 						.css('background-position', (-selection.x1 * scale / 100 * 128 / imgWidth) + 'px ' + (-selection.y1 * yscale / 100 * 128 / imgHeight) + 'px');
 }
 
 $('.add_ship_heart').on('click', function(){
+	//creates the add ship dialog
 	$('.add_ship').html(addShipTemplate);
-	$('.overlay').css('z-index','1');
 	$('.add_ship').css('visibility', 'visible').css('z-index', '2');
 	$('.add_ship_dialog').css('left','calc(50% - ' +  $('.add_ship_dialog').width() / 2 + 'px)')
 						 .css('top','calc(50% - ' +  $('.add_ship_dialog').height() / 2 + 'px)');
+	//creates a darkened backdrop
+	$('.overlay').css('z-index','1');
+	//prevents the user from scrolling while in the dialog
+	$('html').css('overflow-y','hidden');
 });
 
 $('.add_ship').click(function(ev){
 	if(ev.target.getAttribute('class') == 'add_ship'){
+		//if the user clicks on the backdrop, exit the dialog
 		$('.overlay').css('z-index','-1');
 		$('.add_ship').html('');
 		$('.add_ship').css('visibility', 'hidden').css('z-index', '-1');
@@ -210,9 +169,13 @@ $('.add_ship').click(function(ev){
 			editPic1Select.cancelSelection();
 		if(editPic2Select)
 			editPic2Select.cancelSelection();
+		//reset scroll
+		$('html').css('overflow-y','scroll');
 	} else if(ev.target.getAttribute('class') == 'add_ship_pic_1'){
+		$('.edit_pic_1').imgAreaSelect({remove:true});
 		$('#file_pic_1').trigger('click');
 	} else if(ev.target.getAttribute('class') == 'add_ship_pic_2'){
+		$('.edit_pic_2').imgAreaSelect({remove:true});
 		$('#file_pic_2').trigger('click');
 	}
 });
@@ -230,13 +193,14 @@ $(document).on('keydown', '.add_ship_tags_input input', function(ev){
 	}
 });
 
+
 $(document).on('change', '#file_pic_1', function(){
 	if(this.files[0].type.indexOf('image') == -1){
-		console.log('File not a support image type');
+		alert('File not a support image type');
 		return;
 	}
 	if(this.files[0].size / 1024 / 1024 > 5){
-		console.log('Upload an image more than 5MB');
+		alert('Upload an image more than 5MB');
 		return;
 	}
 	$('.edit_pic_1_dialog').css('visibility','visible')
@@ -251,7 +215,6 @@ $(document).on('change', '#file_pic_1', function(){
 		img.onload = function(){
 			$('.edit_pic_1').css('background','url("' + img.src +'") no-repeat');
 			$('.add_ship_pic_1').css('background','url("' + img.src +'") no-repeat');
-			console.log($('.edit_pic_1').css('width') + ' | ' + $('.edit_pic_1').css('height'));
 			if(this.width >= this.height){
 				$('.edit_pic_1').css('background-size','100% auto');
 				var ratio = parseInt($('.edit_pic_1').css('width').substring(0, $('.edit_pic_1').css('width').indexOf('px'))) / this.width;
@@ -260,7 +223,6 @@ $(document).on('change', '#file_pic_1', function(){
 			} else {
 				$('.edit_pic_1').css('background-size','auto 100%');
 				var ratio = parseInt($('.edit_pic_1').css('height').substring(0, $('.edit_pic_1').css('height').indexOf('px'))) / this.height;
-				console.log(this.width + ' ' + this.height);
 				$('.edit_pic_1').css('width', this.width * ratio);
 				$('.edit_pic_1').css('height', this.height * ratio);
 			}
@@ -283,11 +245,11 @@ $(document).on('change', '#file_pic_1', function(){
 
 $(document).on('change', '#file_pic_2', function(){
 	if(this.files[0].type.indexOf('image') == -1){
-		console.log('File not a support image type');
+		alert('File not a support image type');
 		return;
 	}
 	if(this.files[0].size / 1024 / 1024 > 5){
-		console.log('Upload an image more than 5MB');
+		alert('Upload an image more than 5MB');
 		return;
 	}
 	$('.edit_pic_2_dialog').css('visibility','visible')

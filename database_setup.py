@@ -14,22 +14,12 @@ class Tag(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, unique=True)
 
-class Image(Base):
-    __tablename__ = 'image'
-    id = Column(Integer, primary_key=True)
-    x_coord = Column(Integer, nullable=False)
-    y_coord = Column(Integer, nullable=False)
-    path = Column(String(250), nullable=False)
-    zoom = Column(Integer, nullable=False)
-
 
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     name_id = Column(Integer, ForeignKey(Tag.id), nullable=False)
     name = relationship(Tag)
-    image_id = Column(Integer, ForeignKey(Image.id))
-    image = relationship(Image)
 
 
 class Ship(Base):
