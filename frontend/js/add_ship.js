@@ -39,7 +39,7 @@ var cardTemplate = "" +
 			<div class='add_ship_dialog'>
 				<div class='add_ship_header'>
 					<div class='add_ship_shipname'>
-						<input placeholder='Shipname' spellcheck=false></input>
+						<input autocomplete='off' placeholder='Shipname' spellcheck=false></input>
 					</div>
 				</div>
 				<div class='add_ship_main'>
@@ -50,21 +50,21 @@ var cardTemplate = "" +
 							<div class='add_ship_pic_1' style='background-image: url("http://www.aheritier.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"); background-size: 100% auto;'>
 							</div>
 							<div class='add_ship_name_1'>
-								<input placeholder='Name 1' spellcheck=false></input>
+								<input autocomplete='off' placeholder='Name 1' spellcheck=false></input>
 							</div>
 						</div>
 						<div class='add_ship_person_2'>	
 							<div class='add_ship_pic_2' style='background-image: url("http://www.aheritier.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"); background-size: 100% auto;'>
 							</div>
 							<div class='add_ship_name_2'>
-								<input placeholder='Name 2' spellcheck=false></input>
+								<input autocomplete='off' placeholder='Name 2' spellcheck=false></input>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class='add_ship_tags'>
 					<div class='add_ship_tags_input'>
-						<input placeholder='Enter tags here...' spellcheck=false></input>
+						<input autocomplete='off' placeholder='Enter tags here...' spellcheck=false></input>
 					</div>
 					<div class='add_ship_tags_display'>
 						<p></p>
