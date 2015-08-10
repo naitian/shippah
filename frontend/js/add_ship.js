@@ -300,12 +300,12 @@ $('.add_ship_button input').click(function(){
 		url: '/create_ship.py',
 		contentType: 'application/json',
 		data: {
-			JSON.stringify({
+			info: JSON.stringify({
 				'ship_name': $('.add_ship_shipname input').val(),
 				'user_name_1': $('.add_ship_name_1 input').val(),
 				'user_name_2': $('.add_ship_name_2 input').val(),
 				'tags': tagsList,
-			});
+			})
 		},
 		success: function(result){
 		
