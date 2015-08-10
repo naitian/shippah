@@ -290,3 +290,25 @@ $(document).on('change', '#file_pic_2', function(){
 		}
 	};
 });
+
+
+$('.add_ship_button input').click(function(){
+	rawTags = $('.add_ship_tags_display p').text();
+	tagsList = rawTags.replace('Tags:','').replace(/\s/g,'').split(',');
+	$.ajax({
+		type: 'POST',
+		url: '/create_ship.py',
+		contentType: 'application/json',
+		data: {
+			JSON.stringify({
+				'ship_name': $('.add_ship_shipname input').val(),
+				'user_name_1': $('.add_ship_name_1 input').val(),
+				'user_name_2': $('.add_ship_name_2 input').val(),
+				'tags': tagsList,
+			});
+		},
+		success: function(result){
+		
+		}
+	});
+});
