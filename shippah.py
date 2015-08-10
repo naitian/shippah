@@ -2,18 +2,21 @@ from flask import Flask, render_template, url_for, request, redirect, jsonify
 from shippah_query import *
 from shippah_increment import *
 
-app = Flask(__name__)
-
+app = Flask(__name__, static_folder='/home/muakasan/Documents/shippah/static')
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Ship, User, Tag, ShipTag, Image
+from database_setup import Base, Ship, User, Tag, ShipTag
 from shippah_insert import addShip
 
 engine = create_engine('sqlite:///shippah.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 @app.route('/api/get_ships_by_tag/', methods=['POST'])
 def get_ships_by_tag():
@@ -43,7 +46,7 @@ def createUser():
 		print(tags)
 		addShip(ship_name, user_name_1, user_name_2, tags)
 		return True
-    return False
+	return False
 
 if __name__ == '__main__':
     app.debug = True
