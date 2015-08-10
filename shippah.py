@@ -8,6 +8,7 @@ app = Flask(__name__)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Ship, User, Tag, ShipTag, Image
+from shippah_insert import addShip
 
 engine = create_engine('sqlite:///shippah.db')
 Base.metadata.bind = engine
@@ -28,7 +29,21 @@ def get_ships(type):
 	elif type == "popular":
 		ships = get_popular(10);
 	return jsonify(Ships=ships)
-	
+
+@app.route('/create_ship', methods=["POST"])
+def createUser():
+	if request.json:
+		ship_name =  json['ship_name']
+		print(ship_name)
+		user_name_1 = json['user_name_1']
+		print(user_name_1)
+		user_name_2 = json['user_name_2']
+		print(user_name_2)
+		tags = json['tags']
+		print(tags)
+		addShip(ship_name, user_name_1, user_name_2, tags)
+		return True
+    return False
 
 if __name__ == '__main__':
     app.debug = True
