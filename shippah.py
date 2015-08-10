@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for, request, redirect, jsonify
+from flask import Flask, render_template, url_for, request, redirect, jsonify, json
+from urllib import unquote
 from shippah_query import *
 from shippah_increment import *
 
@@ -35,18 +36,16 @@ def get_ships(type):
 
 @app.route('/create_ship', methods=["POST"])
 def createUser():
-	if request.json:
+	json = request.get_json()
+	if json:
 		ship_name =  json['ship_name']
-		print(ship_name)
 		user_name_1 = json['user_name_1']
-		print(user_name_1)
 		user_name_2 = json['user_name_2']
-		print(user_name_2)
 		tags = json['tags']
-		print(tags)
 		addShip(ship_name, user_name_1, user_name_2, tags)
-		return True
-	return False
+		return render_template("index.html")
+	return render_template("index.html")
+
 
 if __name__ == '__main__':
     app.debug = True

@@ -292,7 +292,8 @@ $(document).on('change', '#file_pic_2', function(){
 });
 
 
-$('.add_ship_button input').click(function(){
+$(document).on("click", ".add_ship_button input", function(){
+	console.log('got into method')
 	rawTags = $('.add_ship_tags_display p').text();
 	tagsList = rawTags.replace('Tags:','').replace(/\s/g,'').split(',');
 	$.ajax({
