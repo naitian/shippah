@@ -292,9 +292,11 @@ $(document).on('change', '#file_pic_2', function(){
 });
 
 
-$('.add_ship_button input').click(function(){
+$(document).on('click', '.add_ship_button input', function(){
 	rawTags = $('.add_ship_tags_display p').text();
 	tagsList = rawTags.replace('Tags:','').replace(/\s/g,'').split(',');
+	console.log(tagsList);
+	console.log(JSON.stringify(tagsList));
 	$.ajax({
 		type: 'POST',
 		url: '/create_ship.py',
@@ -304,7 +306,7 @@ $('.add_ship_button input').click(function(){
 				'ship_name': $('.add_ship_shipname input').val(),
 				'user_name_1': $('.add_ship_name_1 input').val(),
 				'user_name_2': $('.add_ship_name_2 input').val(),
-				'tags': tagsList,
+				'tags': JSON.stringify(tagsList),
 			})
 		},
 		success: function(result){
