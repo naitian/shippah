@@ -7,9 +7,6 @@ myFirebaseRef.once("value", function(snapshot) {
   });
 });
 
-startSnapshot.forEach( function(ship) {
-});
-
 $(document).on('click', '.add_ship_button input', function(){
 	rawTags = $('.add_ship_tags_input input').val();
 	tagsList = rawTags.replace('Tags:','').replace(/\s/g,'').split(',');
@@ -19,6 +16,5 @@ $(document).on('click', '.add_ship_button input', function(){
 		user_name_2: $('.add_ship_name_2 input').val(),
 		tags: tagsList
 	});
-	$('.add_ship').trigger('click');
-
+	location.reload();
 });
