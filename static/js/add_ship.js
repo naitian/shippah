@@ -292,23 +292,22 @@ $(document).on('change', '#file_pic_2', function(){
 });
 
 
-$(document).on('click', '.add_ship_button input', function(){
+$(document).on("click", ".add_ship_button input", function(){
+	console.log('got into method')
 	rawTags = $('.add_ship_tags_display p').text();
 	tagsList = rawTags.replace('Tags:','').replace(/\s/g,'').split(',');
-	console.log(tagsList);
-	console.log(JSON.stringify(tagsList));
 	$.ajax({
 		type: 'POST',
-		url: '/create_ship.py',
+		url: '/create_ship',
 		contentType: 'application/json',
-		data: {
-			info: JSON.stringify({
+		data: 
+			JSON.stringify({
 				'ship_name': $('.add_ship_shipname input').val(),
 				'user_name_1': $('.add_ship_name_1 input').val(),
 				'user_name_2': $('.add_ship_name_2 input').val(),
-				'tags': JSON.stringify(tagsList),
+				'tags': tagsList,
 			})
-		},
+		,
 		success: function(result){
 		
 		}

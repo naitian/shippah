@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sqlalchemy import create_engine, desc, update
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Ship, User, Tag, ShipTag, Image
+from database_setup import Base, Ship, User, Tag, ShipTag
 
 engine = create_engine('sqlite:///shippah.db')
 Base.metadata.bind = engine
